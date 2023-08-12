@@ -1,23 +1,23 @@
-package br.com.gatewaytcp;
-
-import availablePorts.GetAvailablePorts;
+package test.gatewaytcp;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.ArrayList;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import availablePorts.GetAvailablePorts;
 
 
-public class TcpGatewayExampleApplication {
+
+public class TcpGatewayExampleTest {
 
   private static final int PORT_RANGE_START = 8000;
-  private static final int PORT_RANGE_END = 9000;
+  private static final int PORT_RANGE_END = 8012;
   private static final int MAX_POOL_SIZE = 10;
 
   public static void main(String[] args) throws IOException {
@@ -45,21 +45,17 @@ public class TcpGatewayExampleApplication {
                     OutputStream outputStream = clientSocket.getOutputStream();
 
                     // Read data from the client.
-                    byte[] data = new byte[1024]; //buffer of bytes
+                    byte[] data = new byte[1024];
                     int bytesRead = inputStream.read(data);
 
                     // Send data to SageMaker.
-                    Socket sagemakerSocket = new Socket("sagemaker.us-east-1.amazonaws.com", 8080);
-                    OutputStream sagemakerOutputStream = sagemakerSocket.getOutputStream();
-                    sagemakerOutputStream.write(data);
-
-                    // Read response from SageMaker.
-                    InputStream sagemakerInputStream = sagemakerSocket.getInputStream();
-                    byte[] sagemakerResponse = new byte[1024];
-                    int sagemakerBytesRead = sagemakerInputStream.read(sagemakerResponse);
+                    // TEST: Print the data to the console.
+                    System.out.println(new String(data, 0, bytesRead, StandardCharsets.UTF_8));
 
                     // Send response to the client.
-                    outputStream.write(sagemakerResponse);
+                    String response = "feito!!!";
+                    outputStream.write(response.getBytes(StandardCharsets.UTF_8));
+                    
                   } catch (IOException e) {
                     e.printStackTrace();
                   } finally {
