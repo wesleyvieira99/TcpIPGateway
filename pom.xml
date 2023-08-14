@@ -33,10 +33,23 @@
 			<artifactId>commons-lang3</artifactId>
 			<version>3.9</version>
 		</dependency>
-	</dependencies>
+		
+		 <!-- Spring Boot Starter Web -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+            <version>${spring-boot.version}</version>
+        </dependency>
+    </dependencies>
 
     <build>
         <plugins>
+            <!-- Spring Boot Maven Plugin -->
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>${spring-boot.version}</version>
+            </plugin>
             <!-- Maven Compiler Plugin -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -49,5 +62,4 @@
             </plugin>
         </plugins>
     </build>
-
 </project>

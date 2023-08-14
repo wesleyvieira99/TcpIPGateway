@@ -15,7 +15,7 @@ public class GetAvailablePorts {
 				new ServerSocket(port).close();
 				availablePorts.add(port);
 			} catch (IOException e) {
-				// Port is in use.
+				System.out.println("Port "+ port + " is in use.");
 			}
 		}
 
